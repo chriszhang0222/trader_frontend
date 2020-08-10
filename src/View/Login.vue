@@ -1,18 +1,18 @@
 <template>
         <div class="login-wrap">
             <el-form class="login-container">
-                <h3 class="title">用户登录</h3>
+                <h3 class="title">LOGIN</h3>
                 <el-form-item>
-                    <el-input type="text" placeholder="账号"></el-input>
+                    <el-input type="text" placeholder="username"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input type="password" placeholder="密码"></el-input>
+                    <el-input type="password" placeholder="password"></el-input>
                 </el-form-item>
                 <el-row>
                     <el-col :span="12">
                         <el-form-item>
                             <el-row>
-                                <el-input type="text" auto-complete="off" placeholder="验证码"/>
+                                <el-input type="text" auto-complete="off" placeholder="kaptcha"/>
                             </el-row>
                         </el-form-item>
                     </el-col>
@@ -21,8 +21,8 @@
                     </el-col>
                 </el-row>
                 <el-form-item>
-                    <el-button type="primary" style="width:100%;">
-                        登录
+                    <el-button type="success" style="width:100%;" v-on:click="submit()">
+                        Login
                     </el-button>
                 </el-form-item>
             </el-form>
@@ -31,7 +31,12 @@
 
 <script>
     export default {
-        name: "Login"
+        name: "Login",
+        methods:{
+            submit(){
+
+            }
+        }
     }
 </script>
 
