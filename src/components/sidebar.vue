@@ -2,8 +2,8 @@
     <div class="sidebar">
         <el-menu
         class="sidebar-el-menu"
-        background-color="#024423"
-        text-color="#bfcbd9"
+        background-color="#108048"
+        text-color="#ffffff"
         active-text-color="#20a0ff"
         router
         unique-opened
@@ -45,38 +45,38 @@
                     {
                         icon: 'el-icon-pie-chart',
                         index: 'dashboard',
-                        title: '资金股份'
+                        title: 'Dashboard'
                     },
                     {
                         icon: 'el-icon-s-order',
                         index: 'buy',
-                        title: '买入'
+                        title: 'Buy'
                     },
                     {
                         icon: 'el-icon-sell',
                         index: 'sell',
-                        title: '卖出'
+                        title: 'Sell'
                     },
                     {
                         icon: 'el-icon-search',
                         index: '3',
-                        title: '查询',
+                        title: 'Management',
                         subs: [
                             {
                                 index: 'orderquery',
-                                title: '当日委托'
+                                title: 'Order Query'
                             },
                             {
                                 index: 'tradequery',
-                                title: '当日成交'
+                                title: 'Trade Query'
                             },
                             {
                                 index: 'hisorderquery',
-                                title: '历史委托'
+                                title: 'History Trade'
                             },
                             {
                                 index: 'histradequery',
-                                title: '历史成交'
+                                title: 'History Order'
                             },
                         ]
                     },
@@ -84,22 +84,22 @@
                     {
                         icon: 'el-icon-bank-card',
                         index: '4',
-                        title: '银证业务',
+                        title: 'Bank Card',
                         subs: [
                             {
                                 index: 'transfer',
-                                title: '银证转账'
+                                title: 'Transfer'
                             },
                             {
                                 index: 'transferquery',
-                                title: '转账查询'
+                                title: 'Transfer Query'
                             },
                         ]
                     },
                     {
                         icon: 'el-icon-setting',
                         index: 'pwdsetting',
-                        title: '修改密码'
+                        title: 'Reset Password'
                     },
 
 

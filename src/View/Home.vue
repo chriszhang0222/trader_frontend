@@ -2,7 +2,13 @@
     <div class="wrapper">
         <vHeader></vHeader>
         <v-sidebar></v-sidebar>
-        <router-view></router-view>
+        <div class="content-box" :class="{'content-collapse':collapse}">
+            <div class="content">
+                <transition name="move" mode="out-in">
+                    <router-view></router-view>
+                </transition>
+            </div>
+        </div>
     </div>
 </template>
 
