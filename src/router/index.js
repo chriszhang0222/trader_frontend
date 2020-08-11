@@ -4,6 +4,8 @@ import Login from '../View/Login.vue';
 import Home from '../View/Home.vue';
 import Dashboard from "../View/Dashboard.vue";
 import PwdSetting from "../View/PwdSetting";
+import Transfer from "../View/Transfer";
+import TransferQuery from "../View/TransferQuery";
 Vue.use(VueRouter)
 
 const routes = [
@@ -25,6 +27,14 @@ const routes = [
             {
                 path: '/pwdsetting',
                 component: PwdSetting
+            },
+            {
+                path: '/transfer',
+                component: Transfer
+            },
+            {
+                path: '/transferquery',
+                component: TransferQuery
             }
         ]
 
@@ -48,6 +58,18 @@ const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes
+})
+
+router.beforeEach((to, from, next) => {
+    if(to.meta.requireAuth){
+        if(sessionStorage.getItem("uid")){
+            next();
+        }else{
+            next({path: '/'});
+        }
+    }else{
+        next();
+    }
 })
 
 export default router
