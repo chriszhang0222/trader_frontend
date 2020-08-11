@@ -23,6 +23,18 @@ const routes = [
             },
         ]
 
+    },
+    {
+        path: '/404',
+        component: () => import('../View/404Page.vue'),
+    },
+    {
+      path: '*',
+      redirect: '/404'
+    },
+    {
+        path: '/403',
+        component: () => import('../View/403Page')
     }
 ]
 
