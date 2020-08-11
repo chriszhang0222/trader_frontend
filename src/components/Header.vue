@@ -42,6 +42,7 @@
         methods: {
             collapseChange(){
                 this.collapse = !this.collapse;
+                this.$bus.emit("collapse", this.collapse);
             }
         }
 

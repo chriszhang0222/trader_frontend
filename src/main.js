@@ -4,9 +4,10 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
 import store from './store';
+import VueBus from "vue-bus";
 
 Vue.config.productionTip = false
-
+Vue.use(VueBus);
 Vue.use(ElementUI);
 new Vue({
   router,

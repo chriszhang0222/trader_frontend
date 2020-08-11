@@ -1,6 +1,38 @@
 <template>
     <div class="sidebar">
+        <el-menu
+        class="sidebar-el-menu"
+        background-color="#024423"
+        text-color="#bfcbd9"
+        active-text-color="#20a0ff"
+        router
+        unique-opened
+        :collapse="collapse"
+        :default-active="onRoutes">
+            <template v-for="item in items">
+                <template v-if="item.subs">
+                    <el-submenu :index="item.index" :key="item.index">
+                        <template slot="title">
+                            <i :class="item.icon"></i>
+                            <span slot="title">{{item.title}}</span>
+                        </template>
+                        <template v-for="subItem in item.subs">
+                            <el-menu-item :index="subItem.index"
+                                          :key="subItem.index">
+                                {{ subItem.title }}
+                            </el-menu-item>
+                        </template>
+                    </el-submenu>
+                </template>
+                <template v-else>
+                    <el-menu-item :index="item.index" :key="item.index">
+                        <i :class="item.icon"></i>
+                        <span slot="title">{{ item.title }}</span>
+                    </el-menu-item>
+                </template>
+            </template>
 
+        </el-menu>
     </div>
 </template>
 
@@ -73,6 +105,24 @@
 
                 ]
             };
+        },
+        computed: {
+          onRoutes(){
+              return this.$route.path.replace('/', '');
+          }
+        },
+        created() {
+            this.$bus.on("collapse", (msg) => {
+               this.collapse = msg;
+               this.$bus.emit("collapse-content", msg);
+            });
+
+        },
+        beforeDestroy() {
+            this.$bus.off("collapse", (msg) => {
+                this.collapse = msg;
+                this.$bus.emit("collapse-content", msg);
+            })
         },
         name: "sidebar"
     }
