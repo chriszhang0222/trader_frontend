@@ -21,7 +21,7 @@
                                  :step="0.01"
                                  :min="0.01"/>
             </el-form-item>
-            <el-form-item label="(direction === 0 ? 'Buy In' : 'Sell Out'">
+            <el-form-item :label="(direction === 0 ? 'Buy In' : 'Sell Out')">
                 <el-input-number v-model="volume" controls-position="right"
                                  :min="0" :max="affordCount"/>
             </el-form-item>

@@ -72,11 +72,11 @@
                             },
                             {
                                 index: 'hisorderquery',
-                                title: 'History Trade'
+                                title: 'History Order'
                             },
                             {
                                 index: 'histradequery',
-                                title: 'History Order'
+                                title: 'History Trade'
                             },
                         ]
                     },

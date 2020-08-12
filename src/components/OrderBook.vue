@@ -20,13 +20,13 @@
             <div class="orderBook" style="border-top: none;">
                 <el-row v-for="item in buy" :key="item.name">
                     <el-col :span="6">{{item.name}}</el-col>
-                    <el-col :span="6">{{item.price | filterempty}}</el-col>
+                    <el-col :span="6">{{item.price | filterEmpty}}</el-col>
                     <el-col :span="6">
                         <div class="volumeratio">
                             <div class="buy" v-bind:style="{width: item.width+'%'}"/>
                         </div>
                     </el-col>
-                    <el-col :span="6">{{item.volume | filterempty}}</el-col>
+                    <el-col :span="6">{{item.volume | filterEmpty}}</el-col>
                 </el-row>
             </div>
         </el-form-item>

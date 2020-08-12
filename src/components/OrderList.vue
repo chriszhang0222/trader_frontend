@@ -23,7 +23,7 @@
                             type="primary"
                             size="mini"
                             @click="handleCancel(scope.$index, scope.row)"
-                    >Cancel Order
+                    >Cancel
                     </el-button>
                 </template>
             </el-table-column>

@@ -6,6 +6,12 @@ import Dashboard from "../View/Dashboard.vue";
 import PwdSetting from "../View/PwdSetting";
 import Transfer from "../View/Transfer";
 import TransferQuery from "../View/TransferQuery";
+import Buy from "../View/Buy";
+import Sell from "../View/Sell";
+import TradeQuery from "../View/TradeQuery";
+import OrderQuery from "../View/OrderQuery";
+import HisTradeQuery from "../View/HisTradeQuery";
+import HisOrderQuery from "../View/HisOrderQuery";
 Vue.use(VueRouter)
 
 const routes = [
@@ -35,7 +41,32 @@ const routes = [
             {
                 path: '/transferquery',
                 component: TransferQuery
+            },
+            {
+                path: '/tradequery',
+                component: TradeQuery,
+            },
+            {
+                path: '/orderquery',
+                component: OrderQuery
+            },
+            {
+                path: '/hisorderquery',
+                component: HisOrderQuery
+            },
+            {
+                path: '/histradequery',
+                component: HisTradeQuery,
+            },
+            {
+                path: '/buy',
+                component: Buy,
+            },
+            {
+                path: '/sell',
+                component: Sell
             }
+
         ]
 
     },

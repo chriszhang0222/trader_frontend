@@ -11,7 +11,7 @@
             <el-table-column prop="code" label="Stock Code" align="center"/>
             <el-table-column prop="name" label="Name" align="center"/>
             <el-table-column prop="price" label="Price" align="center"/>
-            <el-table-column prop="count" label="Count" align="center"/>
+            <el-table-column prop="tcount" label="Count" align="center"/>
             <el-table-column label="Balance" align="center"/>
             <el-table-column label="Direction" align="center"/>
 
@@ -21,7 +21,7 @@
                        type="primary" size="small"
                        style="margin-top:2px;float: right"
                        icon="el-icon-refresh"
-                       @click="">
+                       >
                 Refresh
             </el-button>
             <el-pagination

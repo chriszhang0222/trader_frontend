@@ -69,8 +69,8 @@
         components: {CodeInput},
         created() {
             let _today = moment();
-            this.query.startDate = _today.subtract(8, 'days').format('YYYYMMDD');
             this.query.endDate = _today.subtract(1, 'days').format('YYYYMMDD');
+            this.query.startDate = _today.subtract(8, 'days').format('YYYYMMDD');
             this.$bus.on("codeinput-selected", this.updateSelectCode);
         },
         beforeDestroy() {

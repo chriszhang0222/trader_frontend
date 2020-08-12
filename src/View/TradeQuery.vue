@@ -3,21 +3,22 @@
         <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
-                    <i class="el-icon-pie-chart"></i> 资金股份
+                    <i class="el-icon-s-order"></i> Query
                 </el-breadcrumb-item>
+                <el-breadcrumb-item>Today's Transaction</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <el-card class="container">
-            <posi-list/>
+        <el-card shadow="hover" class="container">
+            <trade-list/>
         </el-card>
     </div>
 </template>
 
 <script>
-    import PosiList from "../components/PosiList";
+    import TradeList from "../components/TradeList";
     export default {
-        name: "Dashboard",
-        components: {PosiList},
+        name: "TradeQuery",
+        components: {TradeList}
     }
 </script>
 
