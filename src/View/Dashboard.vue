@@ -3,7 +3,7 @@
         <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
-                    <i class="el-icon-pie-chart"></i> 资金股份
+                    <i class="el-icon-pie-chart"></i> Shares
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
