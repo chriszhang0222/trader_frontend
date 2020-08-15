@@ -1,16 +1,13 @@
 <template>
     <el-autocomplete
-    v-model="state"
-    style="width: 100%"
-    size="small"
-    placeholder="Code"
-    :trigger-on-focus="false"
-    :debounce=100
-    :fetch-suggestions="querySearchAsync"
-    @select="updateInput"
-    >
-
-    </el-autocomplete>
+            v-model="state"
+            style="width: 100%"
+            size="small"
+            placeholder="Code"
+            :fetch-suggestions="querySearchAsync"
+            :trigger-on-focus="false"
+            :debounce=100
+            @select="updateInput"/>
 </template>
 
 <script>

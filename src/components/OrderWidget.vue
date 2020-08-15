@@ -27,7 +27,8 @@
             </el-form-item>
             <el-form-item>
                 <el-button :type="direction === 0 ? 'danger' : 'success'"
-                           style="float: right">
+                           :size="'large'"
+                           style="float: right;width:100%;">
                     {{ direction === 0 ? 'Buy In' : 'Sell Out'}}
 
                 </el-button>
@@ -56,6 +57,13 @@
                 required: true
             }
         },
+        created() {
+            console.log('orderwidget');
+            this.$bus.on("codeinput-selected", this.updateSelectCode);
+        },
+        beforeDestroy() {
+            this.$bus.off("codeinput-selected",  this.updateSelectCode);
+        },
         methods: {
             updateSelectCode(item) {
                 this.code = item.code;
@@ -71,12 +79,6 @@
                 //         }
                 //     }
                 // }
-            },
-            created() {
-                this.$bus.on("codeinput-selected", this.updateSelectCode);
-            },
-            beforeDestroy() {
-                this.$bus.off("codeinput-selected", this.updateSelectCode);
             },
         }
     }

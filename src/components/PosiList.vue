@@ -7,7 +7,9 @@
         </el-row>
         <el-table
         :data="tableData.slice((query.currentPage-1)*query.pageSize, query.currentPage * query.pageSize)"
-        border>
+        border
+        :cell-style="cellStyle"
+        @sort-change="changeTableSort">
             <el-table-column prop="code" label="Code" align="center"
                              sortable :sort-orders="['ascending', 'descending']"
             />
@@ -17,6 +19,20 @@
             <el-table-column label="Cost" align="center"/>
 
         </el-table>
+        <div class="pagination">
+            <el-button round type="primary" size="mini"
+            style="margin-top: 2px; float: right"
+            icon="el-icon-fresh">Refresh</el-button>
+            <el-pagination
+                    background
+                    layout="total, prev, pager, next"
+                    :current-page="query.currentPage"
+                    :page-size="query.pageSize"
+                    :total="dataTotalCount"
+                    @current-change="handlePageChange">
+
+            </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -47,7 +63,6 @@
 
             //处理排序
             changeTableSort(column) {
-                console.log('600886' - '000001');
                 let fieldName = column.prop;
                 if (column.order == "descending") {
                     this.tableData = this.tableData.sort((a, b) => b[fieldName] - a[fieldName]);
