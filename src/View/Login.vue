@@ -20,7 +20,7 @@
                             </el-row>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="12">
+                    <el-col :span="12" style="text-align: right">
                         <img :src="codeImg" @click="getCode()"/>
                     </el-col>
                 </el-row>
@@ -96,12 +96,12 @@
 
             },
             getCode(){
-                return queryCaptcha(this.captchaCallback());
+                return queryCaptcha(this.captchaCallback);
             },
             captchaCallback(data){
                 const captchaData = data.data;
-                this.rule.captchaid = captchaData.id;
-                this.codeImg = captchaData.image;
+                this.ruleForm.captchaid = captchaData.id;
+                this.codeImg = captchaData.imageBase64;
             }
         }
     }

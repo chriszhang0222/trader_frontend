@@ -1,13 +1,22 @@
 import QS from 'qs';
 import axios from 'axios';
 import router from '../router';
+import Tool from '../utils/Tool';
+// axios.defaults.withCredentials = true;
+// axios.interceptors.request.use(function(config){
+//     let token = sessionStorage.getItem("token");
+//     if(Tool.isNotEmpty(token)){
+//         config.headers.token = token;
+//     }
+//     return config;
+// });
 export const reqRealEndAsync =
     (method, baseUrl, url, params, callback) => {
     params.token = sessionStorage.getItem('token');
     return axios({
         timeout: 5000,
         method: method,
-        baseUrl: baseUrl,
+        baseURL: baseUrl,
         url: url,
         headers: {
             'Content-type': 'application/x-www-form-urlencoded'
@@ -36,7 +45,7 @@ export const reqRealEnd = (method, baseUrl, url, params) => {
     return axios({
         timeout: 5000,
         method: method,
-        baseUrl: baseUrl,
+        baseURL: baseUrl,
         url: url,
         headers: {
             'Content-type': 'application/x-www-form-urlencoded'
