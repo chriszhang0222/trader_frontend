@@ -9,7 +9,7 @@
                     <el-col :span="6">{{item.name}}</el-col>
                     <el-col :span="6">{{item.price | filterEmpty}}</el-col>
                     <el-col :span="6">
-                        <div class="volumeration">
+                        <div class="volumeratio">
                             <div class="sell" v-bind:style="{width: item.width+'%'}"></div>
                         </div>
                     </el-col>
@@ -47,31 +47,31 @@
                         name: "卖五",
                         price: -1,
                         volume: -1,
-                        width: 1,
+                        width: 10,
                     },
                     {
                         name: "卖四",
                         price: -1,
                         volume: -1,
-                        width: 1,
+                        width: 25,
                     },
                     {
                         name: "卖三",
                         price: -1,
                         volume: -1,
-                        width: 1,
+                        width: 40,
                     },
                     {
                         name: "卖二",
                         price: -1,
                         volume: -1,
-                        width: 1,
+                        width: 30,
                     },
                     {
                         name: "卖一",
                         price: -1,
                         volume: -1,
-                        width: 1,
+                        width: 70,
                     }
                 ],
                 buy: [
@@ -79,13 +79,13 @@
                         name: "买一",
                         price: -1,
                         volume: -1,
-                        width: 1,
+                        width: 75,
                     },
                     {
                         name: "买二",
                         price: -1,
                         volume: -1,
-                        width: 1,
+                        width: 27,
                     },
                     {
                         name: "买三",
@@ -97,13 +97,13 @@
                         name: "买四",
                         price: -1,
                         volume: -1,
-                        width: 1,
+                        width: 41,
                     },
                     {
                         name: "买五",
                         price: -1,
                         volume: -1,
-                        width: 1,
+                        width: 10,
                     },
                 ],
 

@@ -1,27 +1,32 @@
 <template>
         <div class="login-wrap">
-            <el-form class="login-container">
+            <el-form class="login-container"
+            :model="ruleForm" :rules="rules" ref="ruleForm">
                 <h3 class="title">LOGIN</h3>
-                <el-form-item>
-                    <el-input type="text" placeholder="username"></el-input>
+                <el-form-item prop="uid">
+                    <el-input type="text" v-model="ruleForm.uid" placeholder="username"></el-input>
                 </el-form-item>
-                <el-form-item>
-                    <el-input type="password" placeholder="password"></el-input>
+                <el-form-item prop="password">
+                    <el-input type="password" v-model="ruleForm.password" placeholder="password"></el-input>
                 </el-form-item>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item>
+                        <el-form-item prop="captcha">
                             <el-row>
-                                <el-input type="text" auto-complete="off" placeholder="kaptcha"/>
+                                <el-input type="text" v-model="ruleForm.captcha"
+                                          placeholder="kaptcha"
+                                          @keyup.enter.native="submit('ruleForm')"
+                                />
                             </el-row>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <img />
+                        <img :src="codeImg" @click="getCode()"/>
                     </el-col>
                 </el-row>
                 <el-form-item>
-                    <el-button type="success" style="width:100%;" v-on:click="submit()">
+                    <el-button type="success" style="width:100%;" v-on:click="submit('ruleForm')"
+                    :loading="logging">
                         Login
                     </el-button>
                 </el-form-item>
@@ -30,11 +35,73 @@
 </template>
 
 <script>
+    import {queryCaptcha, login} from "../api/loginApi";
+    import encryptMD5 from 'js-md5';
     export default {
         name: "Login",
+        data(){
+          return{
+              ruleForm: {
+                  uid: '',
+                  password: '',
+                  captcha: '',
+                  captchaId: ''
+              },
+              codeImg: '',
+              rules: {
+                  uid: [{required: true, message: 'Please input account', trigger: 'blur'}],
+                  password: [{required: true, message: 'Please input password', trigger: 'blur'}],
+                  captcha: [{required: true, message: 'Please input captcha', trigger: 'blur'}]
+              },
+              logging: false,
+          }
+        },
+        created() {
+            this.getCode();
+        },
         methods:{
-            submit(){
+            submit(formName){
+                this.$refs[formName].validate(valid => {
+                   if(valid){
+                       this.logging = true;
+                       login({
+                           uid: this.ruleForm.uid,
+                           password: encryptMD5(this.ruleForm.password),
+                           captcha: this.ruleForm.captcha,
+                           captchaId: this.ruleForm.captchaId
+                       }, this.loginCallBack)
+                   }else{
+                       this.$message.error('Account/Password/Captcha is required');
+                   }
+                });
+            },
+            loginCallBack(resp){
+                if(resp.code == 2){
+                    this.$message.error(resp.message);
+                    this.logging = false;
+                    this.getCode();
+                }
+                let data = resp.data;
+                sessionStorage.setItem("uid", data.uid);
+                sessionStorage.setItem("token", data.token);
+                if(data.lastLoginDate.length > 1){
+                    this.$message.success('Last Login Time:'+ data.lastLoginDate + " " + data.lastLoginTime);
+                }else{
+                    this.$message.success('Login Successfully');
+                }
+                setTimeout(() => {
+                    this.logging = false;
+                    this.$router.push("/dashboard")
+                }, 1500)
 
+            },
+            getCode(){
+                return queryCaptcha(this.captchaCallback());
+            },
+            captchaCallback(data){
+                const captchaData = data.data;
+                this.rule.captchaid = captchaData.id;
+                this.codeImg = captchaData.image;
             }
         }
     }
