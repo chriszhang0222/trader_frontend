@@ -1,7 +1,9 @@
 import QS from 'qs';
 import axios from 'axios';
 import router from '../router';
+import Vue from 'vue';
 import Tool from '../utils/Tool';
+import Toast from '../utils/Toast';
 // axios.defaults.withCredentials = true;
 // axios.interceptors.request.use(function(config){
 //     let token = sessionStorage.getItem("token");
@@ -25,18 +27,7 @@ export const reqRealEndAsync =
         traditional: true
     }).then((res) => {
         let resp = res.data;
-        if(resp.success === false){
-            router.replace({
-                path: 'login',
-                query: {
-                    msg: resp.message
-                }
-            })
-        }else{
-            if(callback !== undefined) {
-                callback(resp);
-            }
-        }
+        callback(resp);
     })
 }
 

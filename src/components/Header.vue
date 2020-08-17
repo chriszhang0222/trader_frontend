@@ -31,12 +31,18 @@
                 this.collapseChange();
             }
         },
+        computed: {
+            username(){
+               let name = sessionStorage.getItem("name");
+               return name === null ? "User" : name
+            }
+        },
         data: function(){
             return {
                 collapse: true,
                 fullscreen: false,
                 message: 2,
-                username: 'Chris'
+
             }
         },
         methods: {

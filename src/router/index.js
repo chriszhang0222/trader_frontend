@@ -15,11 +15,9 @@ import HisOrderQuery from "../View/HisOrderQuery";
 Vue.use(VueRouter)
 
 const routes = [
-    {
-        path: '/',
-        name: 'Login',
-        component: Login
-    },
+    {path:'*',redirect:"/login"},
+    {path: '', redirect: "/login"},
+    {path:'/login', component:Login},
     {
         path: '/home',
         name: 'Home',

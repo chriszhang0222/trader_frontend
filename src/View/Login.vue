@@ -3,8 +3,8 @@
             <el-form class="login-container"
             :model="ruleForm" :rules="rules" ref="ruleForm">
                 <h3 class="title">LOGIN</h3>
-                <el-form-item prop="uid">
-                    <el-input type="text" v-model="ruleForm.uid" placeholder="username"></el-input>
+                <el-form-item prop="name">
+                    <el-input type="text" v-model="ruleForm.name" placeholder="username"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input type="password" v-model="ruleForm.password" placeholder="password"></el-input>
@@ -37,19 +37,20 @@
 <script>
     import {queryCaptcha, login} from "../api/loginApi";
     import encryptMD5 from 'js-md5';
+    import Toast from "../utils/Toast";
     export default {
         name: "Login",
         data(){
           return{
               ruleForm: {
-                  uid: '',
+                  name: '',
                   password: '',
                   captcha: '',
                   captchaId: ''
               },
               codeImg: '',
               rules: {
-                  uid: [{required: true, message: 'Please input account', trigger: 'blur'}],
+                  name: [{required: true, message: 'Please input account', trigger: 'blur'}],
                   password: [{required: true, message: 'Please input password', trigger: 'blur'}],
                   captcha: [{required: true, message: 'Please input captcha', trigger: 'blur'}]
               },
@@ -65,7 +66,7 @@
                    if(valid){
                        this.logging = true;
                        login({
-                           uid: this.ruleForm.uid,
+                           name: this.ruleForm.name,
                            password: encryptMD5(this.ruleForm.password),
                            captcha: this.ruleForm.captcha,
                            captchaId: this.ruleForm.captchaId
@@ -76,12 +77,15 @@
                 });
             },
             loginCallBack(resp){
-                if(resp.code == 2){
-                    this.$message.error(resp.message);
+                if(resp.success === false){
+                    Toast.error(resp.message)
+                    // this.$message.error(resp.message);
                     this.logging = false;
                     this.getCode();
+                    return;
                 }
                 let data = resp.data;
+                sessionStorage.setItem("name", data.name);
                 sessionStorage.setItem("uid", data.uid);
                 sessionStorage.setItem("token", data.token);
                 if(data.lastLoginDate.length > 1){
@@ -100,7 +104,7 @@
             },
             captchaCallback(data){
                 const captchaData = data.data;
-                this.ruleForm.captchaid = captchaData.id;
+                this.ruleForm.captchaId = captchaData.id;
                 this.codeImg = captchaData.imageBase64;
             }
         }
