@@ -36,6 +36,7 @@
 
 <script>
     import {queryCaptcha, login} from "../api/loginApi";
+    import {queryTradeData, queryBanalce, queryOrderData, queryPosiData} from "../api/orderApi";
     import encryptMD5 from 'js-md5';
     import Toast from "../utils/Toast";
     export default {
@@ -95,7 +96,11 @@
                 }
                 setTimeout(() => {
                     this.logging = false;
-                    this.$router.push("/dashboard")
+                    this.$router.push("/dashboard");
+                    queryBanalce();
+                    queryPosiData();
+                    queryOrderData();
+                    queryTradeData();
                 }, 1500)
 
             },
