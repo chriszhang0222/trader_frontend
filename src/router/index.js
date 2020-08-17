@@ -26,43 +26,53 @@ const routes = [
             {
                 path: '/dashboard',
                 name: 'Dashboard',
-                component: Dashboard
+                component: Dashboard,
+                meta: {requiredAuth: true}
             },
             {
                 path: '/pwdsetting',
-                component: PwdSetting
+                component: PwdSetting,
+                meta: {requiredAuth: true}
             },
             {
                 path: '/transfer',
-                component: Transfer
+                component: Transfer,
+                meta: {requiredAuth: true}
             },
             {
                 path: '/transferquery',
-                component: TransferQuery
+                component: TransferQuery,
+                meta: {requiredAuth: true}
             },
             {
                 path: '/tradequery',
                 component: TradeQuery,
+                meta: {requiredAuth: true}
             },
             {
                 path: '/orderquery',
-                component: OrderQuery
+                component: OrderQuery,
+                meta: {requiredAuth: true}
             },
             {
                 path: '/hisorderquery',
-                component: HisOrderQuery
+                component: HisOrderQuery,
+                meta: {requiredAuth: true}
             },
             {
                 path: '/histradequery',
                 component: HisTradeQuery,
+                meta: {requiredAuth: true}
             },
             {
                 path: '/buy',
                 component: Buy,
+                meta: {requiredAuth: true}
             },
             {
                 path: '/sell',
-                component: Sell
+                component: Sell,
+                meta: {requiredAuth: true}
             }
 
         ]
@@ -90,7 +100,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    if(to.meta.requireAuth){
+    if(to.meta.requiredAuth){
         if(sessionStorage.getItem("uid")){
             next();
         }else{

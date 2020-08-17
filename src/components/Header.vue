@@ -7,13 +7,13 @@
         <div class="logo">Quantum Trade</div>
         <div class="header-right">
             <div class="header-user-con">
-                <el-dropdown class="user-name" trigger="click">
+                <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
                         {{username}}
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item command="loginout">Logout</el-dropdown-item>
+                        <el-dropdown-item command="logout">Logout</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+    import {logout} from '../api/loginApi.js';
     export default {
         name: "Header",
         mounted() {
@@ -46,6 +47,11 @@
             }
         },
         methods: {
+            handleCommand(command){
+                if(command === 'logout'){
+                    logout();
+                }
+            },
             collapseChange(){
                 this.collapse = !this.collapse;
                 this.$bus.emit("collapse", this.collapse);
