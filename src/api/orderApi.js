@@ -34,3 +34,12 @@ export const queryOrderData = () => {
             store.commit('updateTrade', res.data);
         })
 }
+
+export const queryCode = (params) => {
+    return reqRealEnd("post", config.domain, "/api/code", params);
+}
+
+export const sendOrder = (params, callBack) => {
+    return reqRealEndAsync("post", config.domain,
+        '/api/sendorder', params, callBack);
+}

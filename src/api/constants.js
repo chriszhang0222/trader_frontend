@@ -8,5 +8,12 @@ export const constants = {
     ORDERED: 3,
     TRADED: 4,
     PART_TRADED: 5,
-    ILLEGAL: 6
+    ILLEGAL: 6,
+
+    NEW_ORDER: 0,
+    CANCEL_ORDER: 1,
+
+
+    LIMIT: 0,
+    MARKET: 1
 };

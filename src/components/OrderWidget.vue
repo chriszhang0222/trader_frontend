@@ -19,7 +19,9 @@
                 <el-input-number v-model="price"
                                  controls-position="right"
                                  :step="0.01"
-                                 :min="0.01"/>
+                                 :min="0.01"
+                                 @change="handlePrice"
+                />
             </el-form-item>
             <el-form-item :label="(direction === 0 ? 'Buy In' : 'Sell Out')">
                 <el-input-number v-model="volume" controls-position="right"
@@ -28,7 +30,8 @@
             <el-form-item>
                 <el-button :type="direction === 0 ? 'danger' : 'success'"
                            :size="'large'"
-                           style="float: right;width:100%;">
+                           style="float: right;width:100%;"
+                @click="onOrder">
                     {{ direction === 0 ? 'Buy In' : 'Sell Out'}}
 
                 </el-button>
@@ -39,6 +42,10 @@
 
 <script>
     import CodeInput from "./CodeInput";
+    import {sendOrder} from "../api/orderApi";
+    import {constants} from "../api/constants";
+    import moment from 'moment';
+
     export default {
         name: "OrderWidget",
         components: {CodeInput},
@@ -65,6 +72,38 @@
             this.$bus.off("codeinput-selected",  this.updateSelectCode);
         },
         methods: {
+            handlePrice(){
+                if(this.direction === constants.SELL){
+                    let posiArr = this.$store.state.posiData;
+                    for(let i=0; i< posiArr.length; i++){
+                        if(posiArr[i].code === this.code){
+                            this.affordCount = posiArr[i].count;
+                        }
+                    }
+                }else{
+                    this.affordCount = parseInt(
+                        (this.$store.state.balance/constants.MULTI_FACTOR/this.price)
+                    );
+                }
+            },
+            onOrder(){
+              sendOrder({
+                  uid: sessionStorage.getItem("uid"),
+                  type: constants.NEW_ORDER,
+                  timestamp: moment.now(),
+                  code: this.code,
+                  direction: this.direction,
+                  ordertype: constants.LIMIT,
+                  price: this.price * constants.MULTI_FACTOR,
+                  volume: this.volume
+              }, (res)=> {
+                    if(res.success){
+                        this.$message.success('Order saved succsfully')
+                    }else{
+                        this.$message.error(res.message);
+                    }
+              })
+            },
             updateSelectCode(item) {
                 this.code = item.code;
                 this.name = item.name;

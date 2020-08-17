@@ -11,6 +11,8 @@
 </template>
 
 <script>
+    import {queryCode} from "../api/orderApi";
+
     export default {
         name: "CodeInput",
         data: function(){
@@ -20,19 +22,20 @@
         },
         methods: {
             querySearchAsync(queryString, callback){
-                let list = [
-                    {
-                        code: 1,
-                        name: 'Bank of America',
-                        value: '000001-BOA'
-                    },
-                    {
-                        code: 600000,
-                        name: 'CITI Bank',
-                        value: '600000-CITI'
+                queryCode({
+                    key: queryString
+                }).then(res => {
+                    if(res.data.success === true){
+                        let resData = res.data.data;
+                        for(let i of resData){
+                            i.value = ('000000' + i.code).slice(-6) + '--' + i.name;
+                        }
+                        let list = resData;
+                        callback(list);
+                    }else{
+                        this.$message.error(res.data.message);
                     }
-                ];
-                callback(list);
+                })
             },
             updateInput(item){
                 this.state = ('000000' + item.code).slice(-6);
