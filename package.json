@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --port 8081",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -20,6 +20,7 @@
     "vue": "^2.6.11",
     "vue-bus": "^1.2.1",
     "vue-router": "^3.4.2",
+    "vue-vertx3-eventbus-client": "^3.6.0",
     "vuex": "^3.5.1"
   },
   "devDependencies": {

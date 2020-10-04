@@ -15,6 +15,9 @@
 <script>
     import vHeader from "../components/Header.vue";
     import vSidebar from "../components/sidebar.vue";
+    import {queryBanalce, queryOrderData, queryPosiData, queryTradeData} from "../api/orderApi";
+    import vue from '../main.js';
+    import {codeFormat} from "../api/formatter";
     export default {
         name: "Home",
         components: {vHeader, vSidebar},
@@ -27,11 +30,43 @@
             this.$bus.on("collapse-content", (msg) => {
                 this.collapse = msg;
             })
+            this.$bus.on("tradechange", res => {
+               let jres = JSON.parse(res);
+               let msg = "Success: " + (jres.direction == "BUY" ? "Buy" : "Sell") + codeFormat(jres.code + " " + jres.volume);
+               this.$notify({
+                    title: 'New Trade',
+                   message: msg,
+                   position: 'bottom-right',
+                   type: 'success'
+               });
+
+            });
         },
         beforeDestroy() {
             this.$bus.off("collapse-content", (msg) => {
                 this.collapse = msg;
             })
+        },
+        eventBus: {
+            handlers:[
+                {
+                    address: 'orderchange-' + sessionStorage.getItem("uid"),
+                    headers: {},
+                    callback: function(err, msg){
+                        queryOrderData();
+                        queryTradeData();
+                        queryPosiData();
+                        queryBanalce();
+                    }
+                },
+                {
+                    address: 'tradechange-' + sessionStorage.getItem("uid"),
+                    headers: {},
+                    callback: function(err, msg){
+                        vue.$bus.emit("tradechange", msg);
+                    }
+                }
+            ]
         }
     }
 </script>

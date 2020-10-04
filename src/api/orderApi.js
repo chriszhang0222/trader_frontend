@@ -43,3 +43,7 @@ export const sendOrder = (params, callBack) => {
     return reqRealEndAsync("post", config.domain,
         '/api/sendorder', params, callBack);
 }
+
+export const cancelOrder = (params, callback) => {
+    return reqRealEndAsync("post", config.domain, "/api/cancelorder", params, callback);
+}

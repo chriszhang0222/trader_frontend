@@ -48,6 +48,10 @@
 </template>
 
 <script>
+    import {cancelOrder} from "../api/orderApi";
+    import {constants} from "../api/constants";
+    import {codeFormat} from "../api/formatter";
+
     export default {
         name: "OrderList",
         data() {
@@ -89,7 +93,21 @@
         },
         methods: {
             handleCancel(index, row){
+                let message = (row.direction === constants.BUY ? 'Buy' : 'Sell')
+                + "  " + row.name + "(" + codeFormat(row.code) +")";
+                this.$confirm(message, 'Cancel Order', {
+                    confirmButtonText: 'Confirm',
+                    cancelButtonText: 'Cancel',
+                    type: 'warning'
+                }).then(() => {
+                   cancelOrder({
+                     uid: sessionStorage.getItem("uid"),
+                     counteroid: row.id,
+                     code: row.code
+                   }, () => {
 
+                   })
+                });
             },
             isCancelBtnShow(status) {
                 if (status == 3 || status == 5) {
